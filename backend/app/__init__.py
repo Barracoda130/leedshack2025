@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 # Load environment variables from .env file (used for SECRET_KEY)
 load_dotenv()
@@ -20,12 +20,9 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
-# from app.endpoints import
-# app.register_blueprint(auth.bp)
-
 jwt = JWTManager(app)
 
-from app import views, models
+from app import models, endpoints
 
 # @jwt.user_identity_loader
 # def user_identity_lookup(user):

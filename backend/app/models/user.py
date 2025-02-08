@@ -31,7 +31,8 @@ class User(Base):
 
     def __init__(self, username, email, password, firstname, surname):
         self.validate_length(min_length=4, max_length=80, username=username, password=password)
-        
+        self.unique_constraint_check(username=username, email=email)
+
         hashed_password = generate_password_hash(password) 
         self.username = username
         self.email = email
@@ -50,7 +51,7 @@ class User(Base):
     def insure_item(self, item_id):
         item = Item.get(id=item_id)
         policy = item.base_policy
-        insure = Insure(user=self, item=item, policy=policy)
+        insure = Insure(user=self.id, item=item, policy=policy)
         insure.save()
         return insure
     

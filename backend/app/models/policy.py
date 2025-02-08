@@ -10,6 +10,6 @@ class Policy(Base):
     excess = db.Column(db.Float, nullable=False)
     premium = db.Column(db.Float, nullable=False)
 
-    def __init__(self, excess, premium):    
+    def __init__(self, excess, premium):
         self.excess = excess
         self.premium = premium

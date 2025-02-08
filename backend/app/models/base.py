@@ -20,7 +20,7 @@ class Base(db.Model):
 
     @classmethod
     def get(cls, **kwargs):
-        result = cls.query.filter_by(**kwargs).all()
+        result = cls.query.filter_by(**kwargs).first()
         if result is None:
             raise ValueError(f'{cls.__name__} not found')
         
@@ -38,3 +38,8 @@ class Base(db.Model):
         for field, value in kwargs.items():
             if not (min_length <= len(value) <= max_length):
                 raise ValueError(f'{field} must be between {min_length} and {max_length} characters long')
+            
+    def unique_constraint_check(self, **kwargs):
+        for field, value in kwargs.items():
+            if self.query.filter_by(**{field: value}).first():
+                raise ValueError(f'{field} already exists')

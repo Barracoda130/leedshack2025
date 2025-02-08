@@ -16,9 +16,11 @@ class Dao(Base):
     committee_members = db.relationship('User', secondary='user_in_committee', back_populates='committees')
     items = db.relationship('Item', back_populates='dao')
 
-    def __init__(self, name, money=0):
+    def __init__(self, name, money=0, termination_period=12, joining_fee=0):
         self.name = name
         self.money = money
+        self.termination_period = termination_period
+        self.joining_fee = joining_fee
 
     def __repr__(self):
         return f'<Dao(name={self.name}, money={self.money}, termination_period={self.termination_period}, joining_fee={self.joining_fee})>'
@@ -61,6 +63,7 @@ class Dao(Base):
                 'total_num_of_claims': total_num_of_claims
         }
 
-   def add_member(self, user_id):
-      user = User.get(id=user_id)
-      self.users.append(user)
+    def add_member(self, user_id):
+        user = User.get(id=user_id)
+        self.users.append(user)
+        self.update()

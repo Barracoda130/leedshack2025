@@ -14,3 +14,18 @@ class Base(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def update(self):
+        db.session.commit()
+        
+    @classmethod
+    def get(cls, **kwargs):
+        """
+        >>> User.get(id=1)
+
+        Returns:
+            _type_: _description_
+        """
+        return cls.query.filter_by(**kwargs).first()
+    
+    

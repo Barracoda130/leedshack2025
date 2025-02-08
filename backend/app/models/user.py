@@ -1,6 +1,7 @@
 from datetime import datetime
 from .base import Base
 from .join_tables import *
+from .claim import Claim
 
 from app import db
 
@@ -21,3 +22,9 @@ class User(Base):
 
     def __repr__(self):
         return f'<User(username={self.username}, email={self.email}, created_at={self.created_at})>'
+
+    def submit_claim(self, item, status):
+        claim = Claim(self, item, status)
+        claim.save()
+        return claim
+    

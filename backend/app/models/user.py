@@ -39,9 +39,9 @@ class User(Base):
         self.firstname = firstname
         self.surname = surname
 
-    def make_claim(self, item_id, status):
+    def make_claim(self, item_id):
         item = Item.get(id=item_id)
-        claim = Claim(user=self, item=item, status=status)
+        claim = Claim(user=self, item=item, status="pending")
         claim.save()
 
         self._update_user_policy_on_item(item)
@@ -62,13 +62,3 @@ class User(Base):
 
         excess_rate = item.excess_rate
         new_excess = num_of_claims * excess_rate
-
-        new_policy = Policy(excess=new_excess, premium=current_policy.premium)
-        
-        insure.policy = new_policy
-        insure.save()
-         
-
-    
-    
-    

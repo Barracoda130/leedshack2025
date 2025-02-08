@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app import db
 from .base import Base
+from .user import User
 
 class Dao(Base):
    __tablename__ = "dao"
@@ -18,3 +19,7 @@ class Dao(Base):
 
    def __repr__(self):
       return f'<Dao(name={self.name}, money={self.money})>'
+
+   def add_member(self, user_id):
+      user = User.get(id=user_id)
+      self.users.append(user)

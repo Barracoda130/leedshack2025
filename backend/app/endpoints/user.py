@@ -86,6 +86,27 @@ def make_claim():
     data = request.get_json()
     
     user = get_current_user()
-    
+    try:
+        user.make_claim(data['item_id'])
+    except Exception as e:
+        return jsonify({
+            'message': str(e),
+            'status': 'error'
+        }), 400
+        
+    response = jsonify({'status': 'success'})
 
     return jsonify(response)
+
+@bp.route('/get-claims', methods=['GET'])
+@jwt_required()
+def get_claims():
+    user = get_current_user()
+    claims = user.get_claims()
+    return jsonify({'claims': claims}), 200
+
+@bp.route('/get-info', methods=['GET'])
+@jwt_required()
+def get_info():
+    user = get_current_user()
+    return jsonify({'user_info': user.get_info()}), 200

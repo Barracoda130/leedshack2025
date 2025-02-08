@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 
 # Load environment variables from .env file (used for SECRET_KEY)
 load_dotenv()

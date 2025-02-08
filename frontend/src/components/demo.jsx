@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axiosAuth from '../api/axios-auth';
 
 class Demo extends Component {
     constructor(props) {
@@ -10,32 +11,11 @@ class Demo extends Component {
     }
 
     handleCreate = () => {
-        fetch('http://localhost:5000/demo/create', {
-            method: 'POST',
-            // headers: {
-            // 'Content-Type': 'application/json'
-            // },
-            body: JSON.stringify({ data: 'exampleData' })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Create button clicked', data))
-        .catch(error => console.error('Error:', error));
+        axiosAuth.get('/demo/home');
     };
 
     handleGet = () => {
-        fetch('http://localhost:5000/demo/home', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(message => {
-                console.log('Get button clicked', data);
-                this.setState({ message });
-                this.data.text = message;
-            })
-            .catch(error => console.error('Error:', error));
+        axiosAuth.get('/demo/home');
     };
 
     render() {

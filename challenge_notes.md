@@ -1,0 +1,3 @@
+- Cant easily connect a paypal account to a whatsapp group - in a very basic nutshell that is what the plan is
+- May need to implement some chat functionality? But that is secondary, could be done through linking with another application
+- 

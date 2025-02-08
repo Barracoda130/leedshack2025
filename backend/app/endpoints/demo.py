@@ -4,10 +4,11 @@ from app import app
 from app.models.demo import Demo
 from flask import Blueprint
 
-bp = Blueprint('demo', __name__, '/demo')
+bp = Blueprint('demo', __name__, url_prefix='/demo')
 
 @bp.route('/home', methods=['GET'])
 def demo_endpoint():
+    print("home")
     response = {
         'message': 'Hello, this is a demo endpoint!',
         'status': 'success'
@@ -30,6 +31,7 @@ def create_demo():
 @bp.route('/get', methods=['POST'])
 def get_demo_by_name(name):
     name = request.get_json().get('name')
+    print("hellow")
     
     demo_item = Demo.query.filter_by(name=name).first()
     if demo_item:

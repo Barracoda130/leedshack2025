@@ -50,7 +50,7 @@ class User(Base):
     def insure_item(self, item_id):
         item = Item.get(id=item_id)
         policy = item.base_policy
-        insure = Insure(user=self, item=item, policy=policy)
+        insure = Insure(self.id, item.id, policy.id)
         insure.save()
         return insure
     

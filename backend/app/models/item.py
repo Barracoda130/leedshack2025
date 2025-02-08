@@ -17,7 +17,7 @@ class Item(Base):
     dao = db.relationship("Dao", foreign_keys=[fk_dao_id])
 
 
-    def __init__(self, name, new_price, excess_rate, premium_rate, base_policy_id, dao_id):
+    def __init__(self, name, new_price, excess_rate, premium_rate, base_policy_id=None, dao_id=None):
         self.name = name
         self.new_price = new_price
         self.excess_rate = excess_rate

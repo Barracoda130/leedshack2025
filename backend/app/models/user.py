@@ -17,7 +17,7 @@ class User(Base):
 
     daos = db.relationship('Dao', secondary=user_in_dao, back_populates='users')
     committees = db.relationship('Dao', secondary=user_in_committee, back_populates='committee_members')
-    claims = db.relationship('Claim', back_populates='fk_user')
+    claims = db.relationship('Claim', back_populates='fk_user_id')
 
     def __repr__(self):
         return f'<User(username={self.username}, email={self.email}, created_at={self.created_at})>'

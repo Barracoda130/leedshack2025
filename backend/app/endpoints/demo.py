@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 
 from app import app
-from app.models.demo import Demo
 from flask import Blueprint
 
 bp = Blueprint('demo', __name__, url_prefix='/demo')
@@ -20,8 +19,6 @@ def demo_endpoint():
 def create_demo():
     data = request.get_json()
     print(data)
-    new_demo = Demo(**data)
-    new_demo.save()
     response = {
         'message': 'New demo created successfully!',
         'status': 'success'

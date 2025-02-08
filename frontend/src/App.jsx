@@ -1,6 +1,9 @@
+
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import CreateDao from './createDao';
+import DisplayGraph from './components/nodeMap'
+import Sidebar from './components/sideBar'
 //import Layout from './Layout'; // Adjust the path as necessary
 const ThisRouter = () => {
     return (
@@ -12,6 +15,12 @@ const ThisRouter = () => {
         </Router>
     );
 }
+
+  /*  <>
+        <DisplayGraph />
+        <Sidebar />
+        
+    </>*/
 
 const App = () => {
     return (

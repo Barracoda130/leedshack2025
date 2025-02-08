@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-sigma/core": "^5.0.2",
     "axios": "^1.7.9",
+    "graphology": "^0.25.4",
+    "graphology-types": "^0.24.8",
+    "nvm": "^0.0.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sigma": "^3.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

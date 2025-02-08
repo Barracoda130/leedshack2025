@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from backend.app.models.insure import Insure
-from backend.app.models.policy import Policy
+from .insure import Insure
+from .policy import Policy
 from .base import Base
 from .join_tables import *
 from .claim import Claim

@@ -63,10 +63,14 @@ class User(Base):
         excess_rate = item.excess_rate
         new_excess = num_of_claims * excess_rate
 
-        new_policy = Policy(excess=new_excess, premium=current_policy.premium)
+        premium_rate = item.premium_rate
+        new_premium = num_of_claims * premium_rate
+
+        current_policy.excess = new_excess
+        current_policy.premium = new_premium
+        current_policy.update()
         
-        insure.policy = new_policy
-        insure.save()
+        
          
 
     

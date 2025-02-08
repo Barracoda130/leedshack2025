@@ -15,6 +15,9 @@ class Base(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def update(self):
+        db.session.commit()
+
     @classmethod
     def get(cls, **kwargs):
         result = cls.query.filter_by(**kwargs).all()

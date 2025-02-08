@@ -10,11 +10,7 @@ class Insure(Base):
     item = db.relationship('Item', foreign_keys=[fk_item_id])
     policy = db.relationship('Policy', foreign_keys=[fk_policy_id])
 
-    def __init__(self, user, item, policy):
-        self.fk_user_id = user.id
-        self.fk_item_id = item.id
-        self.fk_policy_id = policy.id
-
-        self.user = user
-        self.item = item
-        self.policy = policy
+    def __init__(self, user_id, item_id, policy_id):
+        self.fk_user_id = user_id
+        self.fk_item_id = item_id
+        self.fk_policy_id = policy_id

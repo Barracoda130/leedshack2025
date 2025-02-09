@@ -47,27 +47,46 @@ const LoadGraph = ({ graph, onNodeClick }) => {
 
   return <GraphEvents onNodeClick={onNodeClick} />;
 };
+const get_data_from_backend = async () => {
+  try {
+    const response = await axiosAuth.post("/dao/get-info", {
+      dao_id: 1,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Main graph component
 export const DisplayGraph = () => {
-  const [graph, setGraph] = useState(() => {
-    const initialGraph = new Graph();
-    initialGraph.addNode("first",
-       { x: 0,
-         y: 0,
-         size: 15,
-         label: "DAO",
-         color: "#FA4F40",
-         //my stuff
-         policy: { "excess": "money", "premium": "money2"},
-         item:{ "item1": "item1", "item2": "item2"},
-         termination: { "term": "2 weeks"},
-         join:{ "join1": "join1"}
-        },
- 
-      );
-    return initialGraph;
-  });
+  const [graph, setGraph] = useState(new Graph());
+
+  useEffect(() => {
+    const fetchDataAndInitializeGraph = async () => {
+      const graphdata = await get_data_from_backend();
+      console.log(graphdata);
+
+      const initialGraph = new Graph();
+      initialGraph.addNode("first", {
+        x: 0,
+        y: 0,
+        size: 15,
+        label: graphdata.dao_info.name,
+        color: "#FA4F40",
+        // my stuff
+        item: graphdata.dao_info.items,
+        terminationPeriod: graphdata.dao_info.termination_period,
+        join: graphdata.dao_info.joining_fee,
+        total_monthly_income: graphdata.dao_info.total_monthly_income,
+      });
+
+      setGraph(initialGraph);
+    };
+
+    fetchDataAndInitializeGraph();
+  }, []);
 
   const [nodeCount, setNodeCount] = useState(1);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -117,18 +136,6 @@ export const DisplayGraph = () => {
     setSelectedNode({ id: nodeId, ...nodeData });
   };
   
-  const get_data_from_backend = async () => {
-    await axiosAuth.post("/dao/get-info", {
-      "dao_id": 1
-    }).then((response) => {
-      console.log(response.data);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-  useEffect(() => {
-    get_data_from_backend();
-  }, []);
 
   // Function to close the modal
   const closeModal = () => {

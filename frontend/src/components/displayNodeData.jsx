@@ -28,6 +28,7 @@ export default DisplayNodeData;
 // Styling
 const modalOverlayStyle = {
   minWidth: "21vw",
+  maxWidth: "21vw",
   position: "fixed",
   top: 0,
   left: "80vw",

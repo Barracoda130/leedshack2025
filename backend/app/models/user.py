@@ -79,6 +79,12 @@ class User(Base):
         current_policy.excess = new_excess
         current_policy.premium = new_premium
         current_policy.update()
+
+    def get_insured_items(self):
+        return [x.item for x in Insure.get_all(user=self)]
+
+    def get_policies(self):
+        return [x.policy for x in Insure.get_all(user=self)]
         
         
          

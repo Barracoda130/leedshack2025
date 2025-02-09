@@ -5,6 +5,7 @@ import "@react-sigma/core/lib/style.css";
 import GraphControls from "./ctrlButtons";
 import DisplayNodeData from "./displayNodeData"; // Import the modal component
 import axiosAuth from "../api/axios-auth";
+import AddNodeModal from "./addNodeModal";
 
 // Custom hook to handle node click events
 const GraphEvents = ({ onNodeClick }) => {
@@ -70,27 +71,29 @@ export const DisplayGraph = () => {
 
   const [nodeCount, setNodeCount] = useState(1);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Function to add a new node
-  const addNode = () => {
+  const addNode = ({ name = "Unnamed Node", items = [] } = {}) => {
+    console.log("Adding node with name:", name, "Items:", items); // Debugging Log
+  
     const newGraph = graph.copy();
     const newNodeId = `node-${nodeCount}`;
-
+  
     newGraph.addNode(newNodeId, {
       x: Math.random() * 5 - 2.5,
       y: Math.random() * 5 - 2.5,
       size: 10,
-      label: `Node ${nodeCount}`,
+      label: name,
       color: "#4F91FA",
-      //my stuff
-      name: "saud",
-      items: { "item1": "item1", "item2": "item2"},
-      total: 123
+      name: name,
+      items: Array.isArray(items) ? items : [], // Ensure it's always an array
+      total: Array.isArray(items) ? items.length : 0 // Safely count items
     });
-
+  
     newGraph.addEdge("first", newNodeId);
     setNodeCount(nodeCount + 1);
     setGraph(newGraph);
+    setIsModalOpen(false);
   };
 
   // Function to delete the last added node
@@ -137,12 +140,18 @@ export const DisplayGraph = () => {
       <SigmaContainer style={{ height: "100vh", width: "100vw" }}>
         <LoadGraph graph={graph} onNodeClick={handleNodeClick} />
       </SigmaContainer>
-      <GraphControls addNode={addNode} deleteNode={deleteNode} />
 
-      {/* Pop-up modal is now a separate component */}
+      {/* Add Node Modal - Placed Here Instead of Sidebar */}
+      <AddNodeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={addNode} />
+
+      {/* Controls */}
+      <GraphControls addNode={() => setIsModalOpen(true)} deleteNode={deleteNode} />
+
+      {/* Pop-up modal for displaying node data */}
       <DisplayNodeData node={selectedNode} onClose={closeModal} />
     </div>
   );
 };
+
 
 export default DisplayGraph;

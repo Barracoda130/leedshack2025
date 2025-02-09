@@ -103,8 +103,47 @@ def create_user():
         
     response = jsonify({'status': 'success'})
 
-    return jsonify(response)
+    return response, 201
+        
+    
+@bp.route('/login', methods=['POST',])
+def login():
+    """
+    format of data:
+    {
+        "username": "username",
+        "password": "password"
+    }
+    """
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    print(username, password)
+    user = User.authenticate(username, password)
+    print(user)
+    if user:
+        access_token = create_access_token(identity=user)
 
+        response = jsonify({'status': 'success', 'token': access_token})
+        return response, 201
+    else:
+        return jsonify({'status': 'error', 'message': 'Incorrect username or password'}), 401
+    
+@bp.route('/logout', methods=['POST',], endpoint='logout')
+@jwt_required()
+def logout():
+  print("Logging out")
+  identity = get_jwt_identity() 
+  print("User ID:", identity)
+  response = jsonify({"status": "success", "message": "Successfully logged out"})
+  unset_jwt_cookies(response)
+  return response, 200
+
+
+@bp.route('/verify-token', methods=['POST',], endpoint='verify-token')
+@jwt_required()
+def verify_token():
+    return jsonify({'success': True}), 200
 
 @bp.route('/make-claim', methods=['POST'])
 @jwt_required()

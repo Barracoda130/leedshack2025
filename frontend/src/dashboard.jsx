@@ -1,5 +1,6 @@
 import DisplayGraph from "./components/nodeMap";
 import Sidebar from "./components/sideBar";
+import Navbar from "./Navbar";
 
 
 const Dashboard = () => {

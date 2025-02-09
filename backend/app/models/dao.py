@@ -16,7 +16,7 @@ class Dao(Base):
     committee_members = db.relationship('User', secondary='user_in_committee', back_populates='committees')
     items = db.relationship('Item', back_populates='dao')
 
-    def __init__(self, name, money=0, termination_period=12, joining_fee=0):
+    def __init__(self, name, money=0, termination_period=1, joining_fee=0):
         self.name = name
         self.money = money
         self.termination_period = termination_period

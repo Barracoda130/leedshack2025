@@ -7,7 +7,7 @@ from .join_tables import *
 from .claim import Claim
 from .item import Item
 
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 
 class User(Base):
@@ -39,6 +39,14 @@ class User(Base):
         self.password = hashed_password
         self.firstname = firstname
         self.surname = surname
+
+    @classmethod
+    def authenticate(cls, username, password):
+        user = cls.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            return user  
+        return None  
+        
 
     def make_claim(self, item_id):
         item = Item.get(id=item_id)

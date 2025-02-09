@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, unset_jwt_cookies, jwt_required, get_current_user
+from flask_jwt_extended import create_access_token, unset_jwt_cookies, jwt_required, get_current_user, get_jwt_identity
 
 from app import app
 from app.models import *
@@ -64,7 +64,10 @@ def login():
 @bp.route('/logout', methods=['POST',], endpoint='logout')
 @jwt_required()
 def logout():
-  response = jsonify()
+  print("Logging out")
+  identity = get_jwt_identity() 
+  print("User ID:", identity)
+  response = jsonify({"status": "success", "message": "Successfully logged out"})
   unset_jwt_cookies(response)
   return response, 200
 

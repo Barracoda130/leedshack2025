@@ -30,6 +30,23 @@ def create():
         
     return jsonify({'status': 'success'}), 200
 
+
+@bp.route('/get-items', methods=['POST',])
+def get_items():
+    """
+    format of data:
+    {
+        'dao_id': 3
+    }
+    """
+    data = request.get_json()
+    dao = Dao.get(id=data['dao_id'])
+    
+    return jsonify({
+        'status': 'success',
+        'items': dao.get_items()
+    }), 200
+
 @bp.route('/get-info', methods=['POST',])
 def get_info():
     """

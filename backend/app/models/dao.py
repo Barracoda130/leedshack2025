@@ -63,6 +63,12 @@ class Dao(Base):
                 'total_monthly_income': total_monthly_income,
                 'total_num_of_claims': total_num_of_claims
         }
+    
+    def get_items(self):
+        items = []
+        for item in self.items:
+            items.append({"id": item.id, "name": item.name, "premium": item.base_policy.premium, "excess": item.base_policy.excess})
+        return items
 
     def add_member(self, user_id):
       user = User.get(id=user_id)

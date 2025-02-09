@@ -1,7 +1,7 @@
-from app.endpoints import demo
+from app.endpoints import user
 
 from app import app
 
-app.register_blueprint(demo.bp)
+app.register_blueprint(user.bp)
 
 print("Registered blueprints")

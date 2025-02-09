@@ -12,6 +12,7 @@ import Navbar from './Navbar';
 const ThisRouter = () => {
     return (
         <Router>
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<CreateDao />} />
                     <Route path="/createDao" element={<CreateDao />} />
@@ -32,7 +33,6 @@ const ThisRouter = () => {
 const App = () => {
     return (
         <div>
-            <Navbar />
             <ThisRouter />
         </div>
     );

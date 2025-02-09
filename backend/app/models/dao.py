@@ -29,7 +29,7 @@ class Dao(Base):
     def get_total_monthly_income(self):
         total_monthly_income = {"total": 0, "stats": {}}
         for items in self.items:
-            for user in items.users:
+            for user in items.user:
                 total_monthly_income["total"] += user.policy.premium
                 total_monthly_income["stats"][f"{user.firstname} {user.lastname}"] = user.policy.premium
 

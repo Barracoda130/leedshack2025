@@ -73,7 +73,7 @@ export const DisplayGraph = () => {
   const [selectedNode, setSelectedNode] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const addNode = ({ name = "Unnamed Node", items = [] } = {}) => {
+  const addNode = ({ name = "Unnamed Node", surname = "idk", items = [] } = {}) => {
     console.log("Adding node with name:", name, "Items:", items); // Debugging Log
   
     const newGraph = graph.copy();
@@ -86,8 +86,8 @@ export const DisplayGraph = () => {
       label: name,
       color: "#4F91FA",
       name: name,
+      surname: surname,
       items: Array.isArray(items) ? items : [], // Ensure it's always an array
-      total: Array.isArray(items) ? items.length : 0 // Safely count items
     });
   
     newGraph.addEdge("first", newNodeId);

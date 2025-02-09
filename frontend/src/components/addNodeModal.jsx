@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const AddNodeModal = ({ isOpen, onClose, onSubmit }) => {
   const [nodeName, setNodeName] = useState("");
+    const [surname, setSurname] = useState("");
   const [items, setItems] = useState([""]); // Store items in an array
 
   if (!isOpen) return null; // Don't render if modal is closed
@@ -27,8 +28,9 @@ const AddNodeModal = ({ isOpen, onClose, onSubmit }) => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name: nodeName, items });
+    onSubmit({ name: nodeName, surname: surname,items });
     setNodeName(""); // Reset form
+    setSurname(""); // Reset form
     setItems([""]); // Reset items
     onClose();
   };
@@ -41,6 +43,8 @@ const AddNodeModal = ({ isOpen, onClose, onSubmit }) => {
          
             <h3>Name:</h3>
             <input type="text" value={nodeName} onChange={(e) => setNodeName(e.target.value)} required />
+            <h3>Surname:</h3>
+            <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} required />
 
           {/* Item List */}
           <div>

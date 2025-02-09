@@ -30,8 +30,7 @@ def create():
         
     return jsonify({'status': 'success'}), 200
 
-@bp.route('/get-info', methods=['GET',])
-@jwt_required()
+@bp.route('/get-info', methods=['POST',])
 def get_info():
     """
     format of data:

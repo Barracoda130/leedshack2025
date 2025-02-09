@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db
 from .base import Base
 from .user import User
+from .item import Item
 
 class Dao(Base):
     __tablename__ = "dao"
@@ -19,6 +20,8 @@ class Dao(Base):
     def __init__(self, name, money=0):
         self.name = name
         self.money = money
+        self.termination_period = 1
+        self.joining_fee = 0
 
     def __repr__(self):
         return f'<Dao(name={self.name}, money={self.money}, termination_period={self.termination_period}, joining_fee={self.joining_fee})>'
@@ -61,6 +64,10 @@ class Dao(Base):
                 'total_num_of_claims': total_num_of_claims
         }
 
-   def add_member(self, user_id):
+    def add_member(self, user_id):
       user = User.get(id=user_id)
       self.users.append(user)
+
+    def add_item(self, item_id):
+        item = Item.get(id=item_id)
+        self.items.append(item)

@@ -20,7 +20,7 @@ class Base(db.Model):
 
     @classmethod
     def get(cls, **kwargs):
-        result = cls.query.filter_by(**kwargs).all()
+        result = cls.query.filter_by(**kwargs).first()
         if result is None:
             raise ValueError(f'{cls.__name__} not found')
         

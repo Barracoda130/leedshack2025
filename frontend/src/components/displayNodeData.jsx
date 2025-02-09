@@ -4,22 +4,48 @@ const DisplayNodeData = ({ node, onClose }) => {
   if (!node) return null; // If no node is selected, don't render anything
 
   console.log("Displaying Node Info:", node); // Debugging log
-
-  return (
-    <div style={modalOverlayStyle}>
+  if(node.id === "first"){
+    return (
+      <div style={modalOverlayStyle}>
       <div style={modalStyle}>
-        <h2>Node Information</h2>
-        <p><strong>ID:</strong> {node.id || "Unknown"}</p>
-        <p><strong>Label:</strong> {node.label || "No Label"}</p>
-        <p><strong>Color:</strong> {node.color || "No Color"}</p>
-        {Object.entries(node).map(([key, value]) => (
-          <p key={key}><strong>{key}:</strong> {JSON.stringify(value)}</p>
-        ))}
-        <button onClick={onClose} style={buttonStyle}>Close</button>
+      <h2>Node Information</h2>
+      <p><strong>ID:</strong> {node.id || "Unknown"}</p>
+      <p><strong>Label:</strong> {node.label || "No Label"}</p>
+      <p><strong>Color:</strong> {node.color || "No Color"}</p>
+      <p><strong>Items:</strong></p>
+      <ul>
+      {node.item && node.item.length > 0 ? (
+        node.item.map((i, index) => (
+        <li key={index}>{i.name}</li>
+        ))
+      ) : (
+        <li>No Items</li>
+      )}
+      </ul>
+      <p><strong>Termination Period:</strong> {node.terminationPeriod || "No Termination Period"}</p>
+      <p><strong>Total Monthly Income:</strong> {node.total_monthly_income || "No Total Monthly Income"}</p>
+      <button onClick={onClose} style={buttonStyle}>Close</button>
       </div>
-    </div>
+      </div>
+    );
+  }
+  else{
+    return (
+      <div style={modalOverlayStyle}>
+        <div style={modalStyle}>
+          <h2>Node Information</h2>
+          <p><strong>ID:</strong> {node.id || "Unknown"}</p>
+          <p><strong>Label:</strong> {node.label || "No Label"}</p>
+          <p><strong>Color:</strong> {node.color || "No Color"}</p>
+          {Object.entries(node).map(([key, value]) => (
+            <p key={key}><strong>{key}:</strong> {JSON.stringify(value)}</p>
+          ))}
+          <button onClick={onClose} style={buttonStyle}>Close</button>
+        </div>
+      </div>
+    );
+  }
 
-  );
 };
 
 export default DisplayNodeData;
@@ -27,11 +53,12 @@ export default DisplayNodeData;
 
 // Styling
 const modalOverlayStyle = {
+  padding: "20px",
   minWidth: "21vw",
   maxWidth: "21vw",
   position: "fixed",
   top: 0,
-  left: "80vw",
+  left: "75vw",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

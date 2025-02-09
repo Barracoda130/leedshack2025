@@ -79,7 +79,20 @@ export const DisplayGraph = () => {
         item: graphdata.dao_info.items,
         terminationPeriod: graphdata.dao_info.termination_period,
         join: graphdata.dao_info.joining_fee,
-        total_monthly_income: graphdata.dao_info.total_monthly_income,
+        total_monthly_income: graphdata.dao_info.total_monthly_income.total,
+      });
+      graphdata.dao_info.users.forEach((user, index) => {
+        initialGraph.addNode(`user-${index}`, {
+          x: Math.random() * 5 - 2.5,
+          y: Math.random() * 5 - 2.5,
+          size: 10,
+          label: user.firstname,
+          color: "#4F91FA",
+          name: user.firstname,
+          surname: user.surname,
+          items: Array.isArray(user.items_insured) ? user.items_insured : [], // Ensure it's always an array
+        });
+        initialGraph.addEdge("first", `user-${index}`);
       });
 
       setGraph(initialGraph);

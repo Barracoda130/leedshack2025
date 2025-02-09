@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import ReactDOM from 'react-dom/client';
 import React, { useState } from 'react';
 import './createDao.css';
+import axiosAuth from './api/axios-auth';
 
 function DAOOptionForm() {
     const [insuranceType, setInsuranceType] = useState(['']);
@@ -51,16 +52,18 @@ function DAOOptionForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const insurancePolicies = insuranceType.map((type, index) => ({
-            [`policy${index + 1}`]: [type, insurancePrices[index]]
+            'name': type, 'premium': insurancePrices[index], 'excess': insuranceExcessPrices[index]
+        
         }));
         const formData = {
-            daoName,
-            terminationPeriod,
-            joiningFee,
-            subscriptionInterval,
+            'name': daoName,
+            'termination_period': terminationPeriod,
+            'joining_fee': joiningFee,
+            'asdf': subscriptionInterval,
             insurancePolicies,
         };
         console.log('Form Data Submitted: ', JSON.stringify(formData, null, 2));
+        axiosAuth.post('/dao/create', formData);
     };
 
     return (

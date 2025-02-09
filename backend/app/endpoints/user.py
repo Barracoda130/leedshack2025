@@ -52,7 +52,9 @@ def login():
     data = request.get_json()
     username = data['username']
     password = data['password']
+    print(username, password)
     user = User.authenticate(username, password)
+    print(user)
     if user:
         access_token = create_access_token(identity=user)
 

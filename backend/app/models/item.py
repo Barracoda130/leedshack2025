@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app import db
 from .base import Base
+from .insure import Insure
 
 class Item(Base):
     __tablename__ = "item"
@@ -24,4 +25,10 @@ class Item(Base):
         self.premium_rate = premium_rate
         self.fk_base_policy_id = base_policy_id
         self.fk_dao_id = dao_id
+
+    def get_users(self):
+        return [x.user for x in Insure.get_all(item=self)]
+        
+    def get_policies(self):
+        return [x.policy for x in Insure.get_all(item=self)]
 

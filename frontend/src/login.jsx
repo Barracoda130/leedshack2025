@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
+import axiosAuth from './api/axios-auth';
 
 function RenderThis({ onLogin }) {
     const [username, setUsername] = useState('');
@@ -35,7 +36,9 @@ const LoginPage = () => {
 
     const handleLogin = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:5001/user/login', { username, password }); 
+            const response = await axios.post('http://localhost:5001/user/login', { 
+                username, password 
+            });
             localStorage.setItem('token', response.data.token);
             navigate('/dashboard');  
         } catch (error) {
@@ -43,9 +46,15 @@ const LoginPage = () => {
         }
     };
 
+    const logout = () => {
+        axiosAuth.post('/user/logout');
+        localStorage.removeItem('token');
+    };
+
     return (
         <div>
             <RenderThis onLogin={handleLogin} />
+            <button onClick={logout}></button>
         </div>
     );
 };

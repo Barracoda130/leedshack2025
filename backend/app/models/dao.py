@@ -28,31 +28,20 @@ class Dao(Base):
 
     def get_total_monthly_income(self):
         total_monthly_income = {"total": 0, "stats": {}}
-        for items in self.items:
-            for user in items.users:
-                total_monthly_income["total"] += user.policy.premium
-                total_monthly_income["stats"][f"{user.firstname} {user.lastname}"] = user.policy.premium
+        for item in self.items:
+                total_monthly_income["total"] += sum([x.premium for x in item.get_policies()])
+                print(total_monthly_income["total"])
+                for user in item.get_users():
+                    total_monthly_income["stats"][f"{user.firstname} {user.surname}"] = sum([x.premium for x in user.get_policies()])
 
         return total_monthly_income
     
-    def get_total_num_of_claims(self):
-        total_num_of_claims = {"total": 0, "stats": {}}
-        for user in self.users:
-            total_claims_by_user = len(user.claims)
-            total_num_of_claims["total"] += total_claims_by_user
-
-            items = {}
-            for claim in user.claims:
-                items[claim.item.name] = len(items.get_all(user=user))
-            total_num_of_claims["stats"][f"{user.firstname} {user.lastname}"] = {"total_claims": total_num_of_claims,
-                                                                                 "items": items}
-        return total_num_of_claims
+   
 
 
     def get_info(self):
         num_of_users = len(self.users)
         total_monthly_income = self.get_total_monthly_income()
-        total_num_of_claims = self.get_total_num_of_claims()
 
         return {
                 'name': self.name,
@@ -61,7 +50,6 @@ class Dao(Base):
                 'joining_fee': self.joining_fee,
                 'num_of_users': num_of_users,
                 'total_monthly_income': total_monthly_income,
-                'total_num_of_claims': total_num_of_claims
         }
 
     def add_member(self, user_id):

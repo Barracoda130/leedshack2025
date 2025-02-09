@@ -26,6 +26,7 @@ def create_dummy_data():
 
     dao1.add_item(item1.id)
     dao1.add_item(item2.id)
+    dao1.update()
 
     user1 = User(username=None, password=None, email=None, firstname='user', surname='one')
     user2 = User(username=None, password=None, email=None, firstname='user', surname='two')
@@ -45,6 +46,7 @@ def create_dummy_data():
     dao1.add_member(user1.id)
     dao1.add_member(user2.id)
     dao1.add_member(user3.id)
+    dao1.update()
 
 create_dummy_data()
 

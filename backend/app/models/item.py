@@ -32,3 +32,10 @@ class Item(Base):
     def get_policies(self):
         return [x.policy for x in Insure.get_all(item=self)]
 
+    def get_info(self):
+        return {
+            "name": self.name,
+            "excess": self.base_policy.excess,
+            "premium": self.base_policy.premium,
+        }
+

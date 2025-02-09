@@ -50,6 +50,7 @@ class Dao(Base):
                 'joining_fee': self.joining_fee,
                 'num_of_users': num_of_users,
                 'total_monthly_income': total_monthly_income,
+                'users': [x.get_info() for x in self.users],
         }
 
     def add_member(self, user_id):

@@ -85,6 +85,17 @@ class User(Base):
 
     def get_policies(self):
         return [x.policy for x in Insure.get_all(user=self)]
+
+    def get_info(self):
+        return {
+            'username': self.username,
+            'email': self.email,
+            'firstname': self.firstname,
+            'surname': self.surname,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'items_insured': [x.get_info() for x in self.get_insured_items()],
+        }
         
         
          

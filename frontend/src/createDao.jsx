@@ -6,8 +6,9 @@ import './createDao.css';
 function DAOOptionForm() {
     const [insuranceType, setInsuranceType] = useState(['']);
     const [insurancePrices, setInsurancePrices] = useState(['']);
+    const [insuranceExcessPrices, setInsuranceExcessPrices] = useState(['']);
     const [daoName, setDaoName] = useState('');
-    const [daoDescription, setDaoDescription] = useState('');
+    const [terminationPeriod, setTerminationPeriod] = useState('');
     const [joiningFee, setJoiningFee] = useState('');
     const [subscriptionInterval, setSubscriptionInterval] = useState('daily');
 
@@ -23,12 +24,15 @@ function DAOOptionForm() {
     };
 
     const deleteInsuranceType = (index) => {
-        const newInsuranceType = [...insuranceType];
+        const newInsuranceType = [...insuranceType];``
         const newInsurancePrices = [...insurancePrices];
+        const newInsuranceExcessPrices = [...insuranceExcessPrices];
         newInsuranceType.splice(index, 1);
         newInsurancePrices.splice(index, 1);
+        newInsuranceExcessPrices.splice(index, 1);
         setInsuranceType(newInsuranceType);
         setInsurancePrices(newInsurancePrices);
+        setInsuranceExcessPrices(newInsuranceExcessPrices);
     };
 
     const handleInsurancePriceChange = (index, event) => {
@@ -37,6 +41,13 @@ function DAOOptionForm() {
         setInsurancePrices(newInsurancePrices);
     };
 
+    const handleInsuranceExcessChange = (index, event) => {
+        const newInsuranceExcessPrices = [...insuranceExcessPrices];
+        newInsuranceExcessPrices[index] = event.target.value;
+        setInsuranceExcessPrices(newInsuranceExcessPrices);
+    };
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const insurancePolicies = insuranceType.map((type, index) => ({
@@ -44,13 +55,12 @@ function DAOOptionForm() {
         }));
         const formData = {
             daoName,
-            daoDescription,
+            terminationPeriod,
             joiningFee,
             subscriptionInterval,
             insurancePolicies,
         };
         console.log('Form Data Submitted: ', JSON.stringify(formData, null, 2));
-        // You can add your form submission logic here, e.g., send data to a server
     };
 
     return (
@@ -65,11 +75,16 @@ function DAOOptionForm() {
                         onChange={(e) => setDaoName(e.target.value)} 
                     /> 
                 </label>
-                <label> DAO Group Description 
-                    <textarea 
-                        value={daoDescription} 
-                        onChange={(e) => setDaoDescription(e.target.value)}
-                    ></textarea> 
+                <label> Termination Period
+
+                    <select 
+                        value={terminationPeriod} 
+                        onChange={(e) => setTerminationPeriod(e.target.value)}
+                    >
+                        <option value="Day">1 Day</option>
+                        <option value="Week">1 Week</option>
+                        <option value="BiWeek">2 Week</option>
+                    </select>
                 </label>
                 <label> Joining Fee (£) 
                     <input 
@@ -98,13 +113,21 @@ function DAOOptionForm() {
                             type="text" 
                             value={type} 
                             onChange={(event) => handleInsuranceTypeChange(index, event)} 
-                            placeholder="new insurance policy" 
+                            placeholder="policy/insurance type" 
                         />
                         <input 
                             type="number" 
                             value={insurancePrices[index]}
                             onChange={(event) => handleInsurancePriceChange(index, event)} 
-                            placeholder="policy price" 
+                            placeholder="premium amount" 
+                            min="0" 
+                            step="0.01"
+                        />
+                        <input 
+                            type="number" 
+                            value={insuranceExcessPrices[index]}
+                            onChange={(event) => handleInsuranceExcessChange(index, event)} 
+                            placeholder="item excess" 
                             min="0" 
                             step="0.01"
                         />

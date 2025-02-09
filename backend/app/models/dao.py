@@ -51,6 +51,7 @@ class Dao(Base):
                 'num_of_users': num_of_users,
                 'total_monthly_income': total_monthly_income,
                 'users': [x.get_info() for x in self.users],
+                'items': self.get_items()
         }
     
     def get_items(self):

@@ -158,7 +158,6 @@ function DaoMenuOptions() {
 const CreateDao = () => {
     return (
         <div>
-            <Navbar />
             <DaoMenuOptions />
         </div>
     );

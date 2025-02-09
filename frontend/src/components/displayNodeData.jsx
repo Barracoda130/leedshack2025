@@ -6,8 +6,8 @@ const DisplayNodeData = ({ node, onClose }) => {
   console.log("Displaying Node Info:", node); // Debugging log
 
   return (
-    <div style={modalOverlayStyle} onClick={onClose}>
-      <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+    <div style={modalOverlayStyle}>
+      <div style={modalStyle}>
         <h2>Node Information</h2>
         <p><strong>ID:</strong> {node.id || "Unknown"}</p>
         <p><strong>Label:</strong> {node.label || "No Label"}</p>
@@ -27,12 +27,10 @@ export default DisplayNodeData;
 
 // Styling
 const modalOverlayStyle = {
+  minWidth: "21vw",
   position: "fixed",
   top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0,0,0,0.5)",
+  left: "80vw",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -40,9 +38,9 @@ const modalOverlayStyle = {
 };
 
 const modalStyle = {
-  background: "white",
+  background: "#1E1E2F",
+  color: "white",
   padding: "20px",
-  borderRadius: "10px",
   textAlign: "center",
   zIndex: 30,
 };

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db
 from .base import Base
 from .user import User
+from .item import Item
 
 class Dao(Base):
     __tablename__ = "dao"
@@ -64,6 +65,9 @@ class Dao(Base):
         }
 
     def add_member(self, user_id):
-        user = User.get(id=user_id)
-        self.users.append(user)
-        self.update()
+      user = User.get(id=user_id)
+      self.users.append(user)
+
+    def add_item(self, item_id):
+        item = Item.get(id=item_id)
+        self.items.append(item)

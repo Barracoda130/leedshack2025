@@ -4,6 +4,7 @@ import { SigmaContainer, useLoadGraph, useSigma, useRegisterEvents } from "@reac
 import "@react-sigma/core/lib/style.css";
 import GraphControls from "./ctrlButtons";
 import DisplayNodeData from "./displayNodeData"; // Import the modal component
+import axiosAuth from "../api/axios-auth";
 
 // Custom hook to handle node click events
 const GraphEvents = ({ onNodeClick }) => {
@@ -112,7 +113,19 @@ export const DisplayGraph = () => {
     console.log("Clicked Node:", nodeData); // Debugging Log
     setSelectedNode({ id: nodeId, ...nodeData });
   };
-
+  
+  const get_data_from_backend = async () => {
+    await axiosAuth.post("/dao/get-info", {
+      "dao_id": 1
+    }).then((response) => {
+      console.log(response.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  useEffect(() => {
+    get_data_from_backend();
+  }, []);
 
   // Function to close the modal
   const closeModal = () => {

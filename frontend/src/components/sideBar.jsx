@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../Navbar";
 
 const Sidebar = () => {
     return (
@@ -6,6 +7,7 @@ const Sidebar = () => {
             <div style={userStyle}>
                 <h2>User Info</h2>
                 <p><strong>Username:</strong> PlaceholderUser</p>
+                <Navbar />
             </div>
             <div style={sidebarItemStyle}>
                 <h3>Item 1</h3>

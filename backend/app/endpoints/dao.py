@@ -7,21 +7,35 @@ from app.models import *
 bp = Blueprint('dao', __name__, url_prefix='/dao')
 
 @bp.route('/create', methods=['POST',])
-@jwt_required()
 def create():
     """
     format of data:
     {
         'name': 'dao_name'
+        'joining_fee': 1.0,
+        'termination_period': 1,
+        'items': [{name: 'item1', premium: 1.0, excess: 1.0}]
     }
     """
     data = request.get_json()
     name = data['name']
+    joining_fee = data['joining_fee']
+    termination_period = data['termination_period']
+    items = data['items']
     
     try:
-        dao = Dao(name)
+        dao = Dao(name, money=0, termination_period=termination_period, joining_fee=joining_fee)
         dao.save()
-        dao.add_member(get_current_user().id)
+
+        for item in items:
+            base_policy = Policy(item['premium'], item['excess'])
+            base_policy.save()
+
+            new_item = Item(item['name'], 0, base_policy.id, dao.id)
+            new_item.save()
+
+            dao.add_item(new_item.id)
+            dao.update()
     except Exception as e:
         return jsonify({
             'message': str(e),

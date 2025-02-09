@@ -41,8 +41,6 @@ def create_dummy_data():
     user3.insure_item(item1.id)
     user3.insure_item(item2.id)
 
-    
-
     dao1.add_member(user1.id)
     dao1.add_member(user2.id)
     dao1.add_member(user3.id)

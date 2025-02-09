@@ -7,6 +7,7 @@ import RegisterPage from './register';
 import DisplayGraph from './components/nodeMap'
 import Sidebar from './components/sideBar'
 import Dashboard from './dashboard';
+import Navbar from './Navbar';
 //import Layout from './Layout'; // Adjust the path as necessary
 const ThisRouter = () => {
     return (
@@ -15,7 +16,7 @@ const ThisRouter = () => {
                     <Route path="/" element={<CreateDao />} />
                     <Route path="/createDao" element={<CreateDao />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} /> 
                     <Route path="/register" element={<RegisterPage />} />
                 </Routes>
         </Router>
@@ -31,6 +32,7 @@ const ThisRouter = () => {
 const App = () => {
     return (
         <div>
+            <Navbar />
             <ThisRouter />
         </div>
     );

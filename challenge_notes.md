@@ -1,3 +1,18 @@
 - Cant easily connect a paypal account to a whatsapp group - in a very basic nutshell that is what the plan is
 - May need to implement some chat functionality? But that is secondary, could be done through linking with another application
-- 
+- Implement a 'credit score' for the members of the dao
+- Every claim premium and excess goes up
+- Automatic adjustment of premiums based on amount of money in dao
+    - Based on number of users, claims per month etc.
+- implement voting feature
+- We are supposed to focus on the setup, not the actual operation so maybe everything above is mute
+    - Wizard is base case
+    - If we have time we can start implementing the actual app
+    - Voting would be a simple thing we can do
+    - Authentication
+    - Claim application page
+    - Don't worry about payment (including gateway page)
+- Not necessary to link with blockchain
+- Termination notice period
+- Joining premium?
+-  

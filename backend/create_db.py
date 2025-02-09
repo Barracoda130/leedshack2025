@@ -8,43 +8,45 @@ db.drop_all()
 db.create_all()
 
 def create_dummy_data():
-    u1 = User(username="user1", email="email1", password="password", firstname="first", surname="surname")
-    u2 = User(username="user2", email="email2", password="password", firstname="first", surname="surname")
-    u3 = User(username="user3", email="email3", password="password", firstname="first", surname="surname")
-    u1.save()
-    u2.save()
-    u3.save()
+    dao1 = Dao('dao1')
 
-    i1 = Item("item1", Decimal(100), Decimal(0.1), Decimal(0.1))
-    i2 = Item("item2", Decimal(200), Decimal(0.2), Decimal(0.2))
-    i1.save()
-    i2.save()   
+    dao1.save()
 
-    p1 = Policy(Decimal(0.1), Decimal(0.1))
-    p2 = Policy(Decimal(0.1), Decimal(0.1))
-    p1.save()
-    p2.save()
+    base_policy1 = Policy(Decimal('1.0'), Decimal('1.0'))
+    base_policy2 = Policy(Decimal('2.0'), Decimal('2.0'))
 
-    i1.base_policy = p1
-    i1.update()
-    i2.base_policy = p2
-    i2.update()
+    base_policy1.save()
+    base_policy2.save()
 
+    item1 = Item(name='item1', new_price=Decimal('10.0'), excess_rate=0.1, premium_rate=0.1, dao_id=dao1.id, base_policy_id=base_policy1.id)
+    item2 = Item(name='item2', new_price=Decimal('20.0'), excess_rate=0.1, premium_rate=0.1, dao_id=dao1.id, base_policy_id=base_policy2.id)
 
-    d1 = Dao(name="dao_name")
-    d1.save()
-    d1.add_member(u1.id)
-    d1.add_member(u2.id)
-    d1.add_item(i1.id)
-    d1.add_item(i2.id)
+    item1.save()
+    item2.save()
+
+    dao1.add_item(item1.id)
+    dao1.add_item(item2.id)
+    dao1.update()
+
+    user1 = User(username=None, password=None, email=None, firstname='user', surname='one')
+    user2 = User(username=None, password=None, email=None, firstname='user', surname='two')
+    user3 = User(username=None, password=None, email=None, firstname='user', surname='three')
+
+    user1.save()
+    user2.save()
+    user3.save()
+
+    user1.insure_item(item1.id)
+    user2.insure_item(item2.id)
+    user3.insure_item(item1.id)
+    user3.insure_item(item2.id)
+
     
 
-    d1.update()
-    d2 = Dao(name="dao_name2")
-    d2.save()
-
-    u1.insure_item(i1.id)
-    u1.insure_item(i2.id)
+    dao1.add_member(user1.id)
+    dao1.add_member(user2.id)
+    dao1.add_member(user3.id)
+    dao1.update()
 
 create_dummy_data()
 

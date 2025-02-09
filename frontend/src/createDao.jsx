@@ -60,7 +60,7 @@ function DAOOptionForm() {
             'termination_period': terminationPeriod,
             'joining_fee': joiningFee,
             'asdf': subscriptionInterval,
-            insurancePolicies,
+            'items': insurancePolicies,
         };
         console.log('Form Data Submitted: ', JSON.stringify(formData, null, 2));
         axiosAuth.post('/dao/create', formData);

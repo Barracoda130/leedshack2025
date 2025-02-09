@@ -76,3 +76,10 @@ def get_info():
         'status': 'success',
         'dao_info': dao.get_info()
     }), 200
+
+@bp.route('/get-all', methods=['GET',])
+def get_all():
+    return jsonify({
+        'status': 'success',
+        'daos': [{'id': x.id, 'name': x.name} for x in Dao.get_all()]
+    }), 200
